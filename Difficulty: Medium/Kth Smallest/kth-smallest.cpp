@@ -3,14 +3,9 @@ class Solution {
     int kthSmallest(vector<int> &arr, int k) {
         // code here
         priority_queue<int,vector<int>>maxheap;
-        for(int i=0;i<k;i++){
-            maxheap.push(arr[i]);
-        }
-        for(int i=k;i<arr.size();i++){
-            if(arr[i]<maxheap.top()){
-                maxheap.pop();
-                maxheap.push(arr[i]);
-            }
+        for(auto &num:arr){
+            maxheap.push(num);
+            if(maxheap.size()>k) maxheap.pop();
         }
         return maxheap.top();
     }
