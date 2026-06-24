@@ -1,26 +1,30 @@
 class Solution {
-public:
-    int median(vector<vector<int>> &mat) {
-        int n = mat.size(), m = mat[0].size();
+  public:
+    int median(vector<vector<int>> &matrix) {
+        int row = matrix.size();
+        int col = matrix[0].size();
         
-        int low = INT_MAX, high = INT_MIN;
-        for (int i = 0; i < n; i++) {
-            low = min(low, mat[i][0]);
-            high = max(high, mat[i][m - 1]);
+        int low = matrix[0][0];
+        int high = matrix[0][col - 1];
+        
+        for (int i = 1; i < row; i++) {
+            low = min(low, matrix[i][0]);
+            high = max(high, matrix[i][col - 1]);
         }
-        
-        while (low <= high) {
-            int mid = (low + high) >> 1;
-            int cnt = 0;
-            
-            for (int i = 0; i < n; i++) {
-                cnt += upper_bound(mat[i].begin(), mat[i].end(), mid) - mat[i].begin();
+        while(low<high){
+            int count=0;
+            int mid=low+(high-low)/2;
+            for(int i=0;i<row;i++){
+                count+=upper_bound(matrix[i].begin(),matrix[i].end(),mid)-matrix[i].begin();
             }
-            
-            if (cnt < (n * m + 1) / 2) low = mid + 1;
-            else high = mid - 1;
+            if(count<(row*col+1)/2){
+                low=mid+1;
+            }
+            else{
+                high=mid;
+            }
         }
-        
         return low;
+        
     }
 };
