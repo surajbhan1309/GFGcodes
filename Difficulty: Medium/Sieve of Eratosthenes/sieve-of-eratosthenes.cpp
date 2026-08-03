@@ -1,21 +1,18 @@
 class Solution {
   public:
     vector<int> sieve(int n) {
-        vector<int>primes(n+1,true);
-        primes[0]=false;
-        primes[1]=false;
-        for(int p=2;p*p<=n;p++){
-            if(primes[p]==true){
-                for(int i=p*p;i<=n;i+=p){
-                    primes[i]=false;
+        vector<int>isPrime(n+1,true);
+        isPrime[0]=isPrime[1]=false;
+        for(int i=2;i*i<=n;i++){
+            if(isPrime[i]){
+                for(int j=i*i;j<=n;j+=i){
+                    isPrime[j]=false;
                 }
             }
         }
         vector<int>ans;
-        for(int i=2;i<=n;i++){
-            if(primes[i]){
-                ans.push_back(i);
-            }
+        for(int i=0;i<=n;i++){
+            if(isPrime[i]) ans.push_back(i);
         }
         return ans;
         
