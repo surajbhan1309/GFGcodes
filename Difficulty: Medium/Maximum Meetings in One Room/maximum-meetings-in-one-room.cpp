@@ -1,41 +1,23 @@
 class Solution {
-    struct Meeting {
-        int start;
-        int finish;
-        int index;
-    };
-
-    static bool compare(const Meeting &a, const Meeting &b) {
-        if (a.finish != b.finish) {
-            return a.finish < b.finish;
-        }
-        return a.index < b.index;
-    }
-
-public:
+  public:
     vector<int> maxMeetings(vector<int> &s, vector<int> &f) {
-        int n = s.size();
-        vector<Meeting> meetings(n);
-        for (int i = 0; i < n; i++) {
-            meetings[i] = {s[i], f[i], i + 1};
+        int n=s.size();
+        vector<pair<int,int>>a(n);
+        for(int i=0;i<n;i++){
+            a[i]={f[i],i};
         }
-        
-        sort(meetings.begin(), meetings.end(), compare);
-        
-        vector<int> result;
-        if (n == 0) return result;
-        
-        result.push_back(meetings[0].index);
-        int last_finish = meetings[0].finish;
-        
-        for (int i = 1; i < n; i++) {
-            if (meetings[i].start > last_finish) {
-                result.push_back(meetings[i].index);
-                last_finish = meetings[i].finish;
+        sort(a.begin(),a.end());
+        vector<int>ans;
+        int lastFinish=a[0].first;
+        ans.push_back(a[0].second+1);
+        for(int i=1;i<n;i++){
+            if(s[a[i].second]>lastFinish){
+                ans.push_back(a[i].second+1);
+                lastFinish=a[i].first;
             }
         }
+        sort(ans.begin(),ans.end());
+        return ans;
         
-        sort(result.begin(), result.end());
-        return result;
     }
 };
