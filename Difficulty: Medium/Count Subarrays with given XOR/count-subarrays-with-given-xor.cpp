@@ -1,17 +1,19 @@
 class Solution {
   public:
     long subarrayXor(vector<int> &arr, int k) {
-        unordered_map<int,long>f;
-        int prefix=0;
+        map<int,int>mp;
+        int n=arr.size();
         long count=0;
-        for(auto &x:arr){
-            prefix^=x;
-            if(prefix==k) count++;
-            int need=prefix^k;
-            if(f.find(need)!=f.end()){
-                count+=f[need];
+        int cxor=0;
+        for(int i=0;i<n;i++){
+            cxor^=arr[i];
+            if(cxor==k){
+                count++;
             }
-            f[prefix]++;
+            if(mp.count(cxor^k)){
+                count+=mp[cxor^k];
+            }
+            mp[cxor]++;
         }
         return count;
         
