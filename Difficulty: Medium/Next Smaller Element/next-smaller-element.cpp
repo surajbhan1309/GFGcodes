@@ -8,10 +8,9 @@ class Solution {
             while(!st.empty() && st.top()>=arr[i]){
                 st.pop();
             }
-            ans[i]=st.empty() ? -1 : st.top();  
+            ans[i]=st.empty()?-1:st.top(); 
             st.push(arr[i]);
         }
         return ans;
-        
     }
 };
