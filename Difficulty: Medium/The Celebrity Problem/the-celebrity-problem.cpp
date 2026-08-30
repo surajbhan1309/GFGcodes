@@ -1,9 +1,9 @@
 class Solution {
   public:
     int celebrity(vector<vector<int>>& mat) {
+        // code here
         int n=mat.size();
         stack<int>st;
-        
         for(int i=0;i<n;i++){
             st.push(i);
         }
