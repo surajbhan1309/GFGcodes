@@ -1,14 +1,11 @@
 class Solution {
   public:
     vector<int> dijkstra(int V, vector<vector<int>> &edges, int src) {
+        // Code here
         vector<pair<int,int>>adj[V];
         for(auto &e:edges){
-            int u=e[0];
-            int v=e[1];
-            int w=e[2];
-            
-            adj[u].push_back({v,w});
-            adj[v].push_back({u,w});
+            adj[e[0]].push_back({e[1],e[2]});
+            adj[e[1]].push_back({e[0],e[2]});
         }
         vector<int>dist(V,1e9);
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
@@ -16,13 +13,15 @@ class Solution {
         pq.push({0,src});
         
         while(!pq.empty()){
-            auto [d,u]=pq.top();
+            auto[d,node]=pq.top();
             pq.pop();
-            if(d>dist[u]) continue;
-            for(auto &[v,w]:adj[u]){
-                if(dist[v]>d+w){
-                    dist[v]=d+w;
-                    pq.push({dist[v],v});
+            
+            if(dist[node]<d) continue;
+            
+            for(auto &[nbr,w]:adj[node]){
+                if(d+w<dist[nbr]){
+                    dist[nbr]=d+w;
+                    pq.push({dist[nbr],nbr});
                 }
             }
         }
