@@ -17,14 +17,12 @@ class Solution {
   public:
     vector<int> topView(Node *root) {
         vector<int>ans;
-        if(!root) return ans;
         queue<pair<Node*,int>>q;
         q.push({root,0});
         map<int,int>mp;
         while(!q.empty()){
-            auto [node,hd]=q.front();
+            auto &[node,hd]=q.front();
             q.pop();
-            
             if(mp[hd]==NULL){
                 mp[hd]=node->data;
             }
